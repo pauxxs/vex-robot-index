@@ -135,7 +135,7 @@ void stopShooter() {
 }
 
 // Toggle track func
-static bool tracktogglebool = false;
+/* static */ bool tracktogglebool = false;
 void toggleTrack() {
   if (tracktogglebool == true) {
     Motor7.spin(forward);
