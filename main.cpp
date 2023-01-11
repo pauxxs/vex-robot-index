@@ -134,10 +134,29 @@ void stopShooter() {
   Motor7.stop();
 }
 
+// Toggle track func
+static bool tracktogglebool = false;
+void toggleTrack() {
+  if (tracktogglebool == true) {
+    Motor7.spin(forward);
+    tracktogglebool = false;
+    Controller1.rumble(rumbleShort);
+  }
+
+  else if (tracktogglebool == false) {
+    Motor7.stop();
+    tracktogglebool = true;
+    Controller1.rumble(rumbleShort);
+  }
+}
+
 void initControl() {
   // L1 is to start/stop shooter
   Controller1.ButtonL1.pressed(startShooter);
   Controller1.ButtonL1.released(stopShooter);
+
+  // L2 is to toggle the track
+  Controller1.ButtonL2.pressed(toggleTrack);
 }
 
 int main() {
@@ -150,8 +169,7 @@ int main() {
   // wait for rotation sensor to fully initialize
   wait(30, msec);
 
-  // Being initiialization
-  initPicker();
+  // If this doesn't work move into the main loop
   initControl();
 
   // Start up main loop
